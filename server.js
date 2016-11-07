@@ -1,14 +1,29 @@
 var http = require('http');
 var fs = require('fs');
+var path = require('path');
+
 var message = "Totally fork you node";
 
 function handler (request, response) {
   var method = request.method;
   var endpoint = request.url;
-
+  var fileType = endpoint.split('.')[1];
   if(endpoint === '/') {
     response.writeHead(200, {"Content-Type": "text/html"});
-    fs.readFile(__dirname + '/public/index.html', function(err,file) {
+    fs.readFile(path.join(__dirname, 'public', 'index.html'), function(err,file) {
+      if(err) {
+        console.log(err);
+        return;
+      }
+      response.end(file);
+    });
+  } else if(endpoint === '/node') {
+
+  } else if(endpoint === '/girls') {
+
+  } else {
+    response.writeHead(200, {"Content-Type": "text/" + fileType});
+    fs.readFile(path.join(__dirname, 'public', endpoint), function(err,file) {
       if(err) {
         console.log(err);
         return;

@@ -1,5 +1,12 @@
 var http = require('http');
-var server = http.createServer();
+var message = "Fork you node."
+function handler (request, response) {
+  response.writeHead(200, {"Content-type": "text/html"});
+  response.write(message);
+  response.end();
+}
+
+var server = http.createServer(handler);
 var port = 3000;
 
 server.listen(port, function() {
